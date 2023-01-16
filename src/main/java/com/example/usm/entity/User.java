@@ -18,6 +18,7 @@ import lombok.*;
 public class User {
 
     @Id
+    @Min(19) @Max(19)
     private String serialNumber;
 
     @Column(length = 50)
