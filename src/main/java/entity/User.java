@@ -18,21 +18,21 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String serialNumber;
+    private String serialNumber;
 
     @Column(length = 50)
     @NotNull @NotBlank
-    String name;
+    private String name;
 
     @Column(length = 14)
     @Min(8) @Max(14)
     @NotNull @NotBlank
-    String phoneNumber;
+    private String phoneNumber;
 
     @Column
     @Enumerated
     @NotNull
-    UserType type;
+    private UserType type;
 
 
 
