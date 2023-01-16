@@ -1,0 +1,41 @@
+package entity;
+
+import enums.ServiceStatus;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+import java.util.Date;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString
+@Builder
+public class Service {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
+
+    @Column(length = 70, nullable = false)
+    @NotNull @NotBlank
+    private String vendor;
+
+    @Column(nullable = false)
+    @NotNull
+    private Date dateCreated;
+
+    @Column
+    @Enumerated
+    @NotNull
+    private ServiceStatus status;
+
+    @ManyToOne
+    @NotNull
+    private User user;
+
+
+}
