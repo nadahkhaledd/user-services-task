@@ -1,6 +1,6 @@
-package entity;
+package com.example.usm.entity;
 
-import enums.UserType;
+import com.example.usm.enums.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
