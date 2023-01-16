@@ -18,7 +18,7 @@ public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
+    private long uid;
 
     @Column(length = 70, nullable = false)
     @NotNull @NotBlank
