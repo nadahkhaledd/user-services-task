@@ -35,7 +35,4 @@ public class User {
     @NotNull
     private UserType type;
 
-
-
-
 }
