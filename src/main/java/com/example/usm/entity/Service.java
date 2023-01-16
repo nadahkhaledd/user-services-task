@@ -1,6 +1,6 @@
-package entity;
+package com.example.usm.entity;
 
-import enums.ServiceStatus;
+import com.example.usm.enums.ServiceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
