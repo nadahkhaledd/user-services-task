@@ -18,7 +18,7 @@ import lombok.*;
 public class User {
 
     @Id
-    @Min(19) @Max(19)
+    @Column(length = 19)
     private String serialNumber;
 
     @Column(length = 50)
@@ -26,7 +26,6 @@ public class User {
     private String name;
 
     @Column(length = 14)
-    @Min(8) @Max(14)
     @NotNull @NotBlank
     private String phoneNumber;
 
