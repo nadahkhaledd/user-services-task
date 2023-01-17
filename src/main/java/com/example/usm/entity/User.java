@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,5 +34,9 @@ public class User {
     @Enumerated
     @NotNull
     private UserType type;
+
+    @ToString.Exclude
+    @OneToMany(orphanRemoval = true)
+    private Set<Service> services = new LinkedHashSet<>();
 
 }
