@@ -24,8 +24,6 @@ public class ServicesService implements IServicesService{
 
     @Override
     public com.example.usm.entity.Service add(com.example.usm.entity.Service service) {
-        userRepository.findById(service.getUser().getSerialNumber()).orElseThrow(UserNotFoundException::new);
-
         return serviceRepository.findById(service.getUid()).orElse(serviceRepository.save(service));
     }
 
@@ -42,11 +40,6 @@ public class ServicesService implements IServicesService{
     @Override
     public List<com.example.usm.entity.Service> findByVendor(String vendor) {
         return serviceRepository.findByVendor(vendor);
-    }
-
-    @Override
-    public List<com.example.usm.entity.Service> findByUser(String serialNumber) {
-        return serviceRepository.findByUserSerialNumber(serialNumber);
     }
 
     @Override

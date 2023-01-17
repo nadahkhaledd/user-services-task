@@ -33,9 +33,6 @@ public class Service {
     @NotNull
     private ServiceStatus status;
 
-    @ManyToOne
-    @NotNull
-    private User user;
 
 
 }
