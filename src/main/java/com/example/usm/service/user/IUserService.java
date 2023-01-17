@@ -5,7 +5,7 @@ import com.example.usm.enums.UserType;
 
 import java.util.List;
 
- interface IUserService {
+ public interface IUserService {
 
      User add(User user);
 
