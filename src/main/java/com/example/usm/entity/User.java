@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 @Builder
 @Table(name = "Users")
@@ -36,7 +37,7 @@ public class User {
     private UserType type;
 
     @ToString.Exclude
-    @OneToMany(orphanRemoval = true)
+    @OneToMany
     private Set<Service> services = new LinkedHashSet<>();
 
 }

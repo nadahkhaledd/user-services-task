@@ -4,13 +4,13 @@ import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.User;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.service.user.IUserService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -33,8 +33,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO addUser(@RequestBody UserDTO userDTO){
-
+    public UserDTO addUser(@Valid @RequestBody UserDTO userDTO){
         User user = userService.add(modelMapper.map(userDTO, User.class));
         return modelMapper.map(user, UserDTO.class);
     }
