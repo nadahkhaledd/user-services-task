@@ -1,11 +1,11 @@
-package com.example.usm.exception.user;
+package com.example.usm.enums;
 
-public enum FieldName {
+public enum UserFieldName {
     SerialNumber("serial number"), PhoneNumber("phone number");
 
     private String label;
 
-    FieldName(String label) {
+    UserFieldName(String label) {
         this.label = label;
     }
 }

@@ -2,7 +2,7 @@ package com.example.usm.service.user;
 
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
-import com.example.usm.exception.user.FieldName;
+import com.example.usm.enums.UserFieldName;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,12 @@ public class UserService implements IUserService{
 
     @Override
     public User findBySN(String serialNumber) {
-        return userRepository.findById(serialNumber).orElseThrow(() -> new UserNotFoundException(FieldName.SerialNumber));
+        return userRepository.findById(serialNumber).orElseThrow(() -> new UserNotFoundException(UserFieldName.SerialNumber));
     }
 
     @Override
     public User findByPhone(String phoneNumber) {
-        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UserNotFoundException(FieldName.SerialNumber));
+        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UserNotFoundException(UserFieldName.SerialNumber));
     }
 
     @Override
