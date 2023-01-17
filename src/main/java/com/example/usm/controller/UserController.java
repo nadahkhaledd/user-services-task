@@ -2,6 +2,7 @@ package com.example.usm.controller;
 
 import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.User;
+import com.example.usm.enums.UserType;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.service.user.IUserService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -27,8 +29,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> findAll(){
-        return userService.getAll().stream().map(user -> modelMapper.map(user, UserDTO.class)).toList();
+    public Object find(@RequestParam(name = "phoneNumber", required = false) Optional<String> phoneNumber,
+                              @RequestParam(name = "type", required = false) Optional<UserType> type){
+        if(phoneNumber.isPresent())
+            return modelMapper.map(userService.findByPhone(phoneNumber.get()), UserDTO.class);
+
+        return type.map(userType -> userService.findByType(userType).stream().map(user -> modelMapper.map(user, UserDTO.class)).toList()).orElseGet(() -> userService.getAll().stream().map(user -> modelMapper.map(user, UserDTO.class)).toList());
+
     }
 
     @PostMapping

@@ -22,7 +22,6 @@ public class UserService implements IUserService{
 
     @Override
     public User add(User user) {
-        System.out.println("Seriall ->>>" + user.getName());
         return userRepository.findById(user.getSerialNumber()).orElse(userRepository.save(user));
     }
 
@@ -38,7 +37,7 @@ public class UserService implements IUserService{
 
     @Override
     public User findByPhone(String phoneNumber) {
-        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UserNotFoundException(UserFieldName.SerialNumber));
+        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UserNotFoundException(UserFieldName.PhoneNumber));
     }
 
     @Override
