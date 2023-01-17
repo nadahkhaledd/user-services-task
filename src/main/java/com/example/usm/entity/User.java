@@ -16,14 +16,14 @@ import lombok.*;
 public class User {
 
     @Id
-    @Column(length = 19)
+    @Column(length = 19, unique = true)
     private String serialNumber;
 
     @Column(length = 50)
     @NotNull @NotBlank
     private String name;
 
-    @Column(length = 14)
+    @Column(length = 14, unique = true)
     @NotNull @NotBlank
     private String phoneNumber;
 
