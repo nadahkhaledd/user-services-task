@@ -18,5 +18,4 @@ public class ServiceDTO {
     private String vendor;
     private Date dateCreated;
     private ServiceStatus status;
-    private User user;
 }
