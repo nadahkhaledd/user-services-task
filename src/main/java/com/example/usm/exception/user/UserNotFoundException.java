@@ -8,7 +8,7 @@ public class UserNotFoundException extends RuntimeException{
         super("user doesn't exist");
     }
     public UserNotFoundException(UserFieldName fieldName) {
-        super(String.format("Could not find user with {} provided ", fieldName));
+        super(String.format("Could not find user with %s provided ", fieldName));
     }
 
 }
