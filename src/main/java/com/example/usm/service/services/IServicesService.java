@@ -16,8 +16,6 @@ public interface IServicesService {
 
     List<Service> findByVendor(String vendor);
 
-    List<Service> findByUser(String serialNumber);
-
     List<Service> findByStatus(ServiceStatus status);
 
 }
