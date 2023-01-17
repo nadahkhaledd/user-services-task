@@ -12,8 +12,6 @@ public interface ServiceRepository extends CrudRepository<Service, Long> {
 
     public List<Service> findByVendor(String vendor);
 
-    public List<Service> findByUserSerialNumber(String serialNumber);
-
     public List<Service> findByStatus(ServiceStatus status);
 
 
