@@ -17,6 +17,4 @@ public interface ServiceRepository extends CouchbaseRepository<Service, Long> {
      List<Service> findByStatus(ServiceStatus status);
 
      List<Service> findByStatusAndVendor(String vendor, ServiceStatus status);
-
-
 }

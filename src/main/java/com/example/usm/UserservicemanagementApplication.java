@@ -14,4 +14,5 @@ public class UserservicemanagementApplication {
 		SpringApplication.run(UserservicemanagementApplication.class, args);
 	}
 
+
 }
