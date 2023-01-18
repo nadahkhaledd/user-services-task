@@ -11,14 +11,13 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @ToString
-@Builder
 public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
+    private long uid;
 
     @Column(length = 70, nullable = false)
     @NotNull @NotBlank
@@ -32,7 +31,4 @@ public class Service {
     @Enumerated
     @NotNull
     private ServiceStatus status;
-
-
-
 }
