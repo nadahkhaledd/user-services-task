@@ -2,13 +2,15 @@ package com.example.usm.repository;
 
 import com.example.usm.entity.Service;
 import com.example.usm.enums.ServiceStatus;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
+import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ServiceRepository extends CrudRepository<Service, Long> {
+@N1qlPrimaryIndexed
+public interface ServiceRepository extends CouchbaseRepository<Service, Long> {
 
      List<Service> findByVendor(String vendor);
 
