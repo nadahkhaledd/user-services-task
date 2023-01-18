@@ -18,4 +18,6 @@ public interface IServicesService {
 
     List<Service> findByStatus(ServiceStatus status);
 
+    List<Service> findByStatusAndVendor(String vendor, ServiceStatus status);
+
 }

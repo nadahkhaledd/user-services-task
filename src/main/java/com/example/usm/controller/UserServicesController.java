@@ -38,12 +38,12 @@ public class UserServicesController {
                 .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
     }
 
-    @PostMapping("/add")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public String addService(@PathVariable(value = "serialNumber") String serialNumber, @RequestParam(name = "uid") long uid){
-        userService.addUserService(servicesService.findByUID(uid), serialNumber);
-        return "service added";
-    }
+//    @PostMapping("/add")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public String addService(@PathVariable(value = "serialNumber") String serialNumber, @RequestParam(name = "uid") long uid){
+//        userService.addUserService(servicesService.findByUID(uid), serialNumber);
+//        return "service added";
+//    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)

@@ -15,10 +15,10 @@ import java.util.Set;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
-    @Transactional
-    @Modifying
-    @Query("update User u set u.services = ?1 where u.serialNumber = ?2")
-    void updateServicesBySerialNumber(Set<Service> services, String serialNumber);
+//    @Transactional
+//    @Modifying
+//    @Query("update User u set u.services = ?1 where u.serialNumber = ?2")
+//    void updateServicesBySerialNumber(Service services, String serialNumber);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 

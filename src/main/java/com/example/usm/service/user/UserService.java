@@ -46,11 +46,11 @@ public class UserService implements IUserService{
         return userRepository.findByType(type);
     }
 
-    @Override
-    public void addUserService(com.example.usm.entity.Service service, String serialNumber) {
-        User user = findBySN(serialNumber);
-        Set<com.example.usm.entity.Service> services = user.getServices();
-        services.add(service);
-        userRepository.updateServicesBySerialNumber(services, serialNumber);
-    }
+//    @Override
+//    public void addUserService(com.example.usm.entity.Service service, String serialNumber) {
+////        User user = findBySN(serialNumber);
+////        Set<com.example.usm.entity.Service> services = user.getServices();
+////        services.add(service);
+//        userRepository.updateServicesBySerialNumber(service, serialNumber);
+//    }
 }

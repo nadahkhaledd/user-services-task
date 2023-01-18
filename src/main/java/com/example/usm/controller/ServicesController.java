@@ -4,6 +4,8 @@ import com.example.usm.dto.ServiceDTO;
 import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.Service;
 import com.example.usm.entity.User;
+import com.example.usm.enums.ServiceStatus;
+import com.example.usm.enums.UserType;
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.service.services.IServicesService;
@@ -13,6 +15,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/services")
@@ -29,8 +34,23 @@ public class ServicesController {
     }
 
     @GetMapping
-    public Object find(){
+    public List<ServiceDTO> find(){
         return servicesService.getAll().stream()
+                .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
+    }
+
+    @GetMapping("/search")
+    public List<ServiceDTO> findByVendorAndStatus(@RequestParam(name = "vendor") Optional<String> vendor,
+                                                  @RequestParam(name = "status") Optional<ServiceStatus> status){
+        if(vendor.isPresent())
+            return servicesService.findByVendor(vendor.get()).stream()
+                    .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
+
+        else if(status.isPresent())
+            return servicesService.findByStatus(status.get()).stream()
+                    .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
+
+        return servicesService.findByStatusAndVendor(vendor.get(), status.get()).stream()
                 .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
     }
 

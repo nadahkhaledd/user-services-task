@@ -19,6 +19,6 @@ public interface IUserService {
 
      List<User> findByType(UserType type);
 
-     void addUserService(Service service, String serialNumber);
+     //void addUserService(Service service, String serialNumber);
 
 }
