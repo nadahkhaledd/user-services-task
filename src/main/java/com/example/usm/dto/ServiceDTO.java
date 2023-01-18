@@ -9,7 +9,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@Builder
 public class ServiceDTO {
     private long uid;
     private String vendor;
