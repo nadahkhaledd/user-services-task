@@ -46,4 +46,9 @@ public class ServicesService implements IServicesService{
     public List<com.example.usm.entity.Service> findByStatus(ServiceStatus status) {
         return serviceRepository.findByStatus(status);
     }
+
+    @Override
+    public List<com.example.usm.entity.Service> findByStatusAndVendor(String vendor, ServiceStatus status) {
+        return serviceRepository.findByStatusAndVendor(vendor, status);
+    }
 }

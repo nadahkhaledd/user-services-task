@@ -2,16 +2,13 @@ package com.example.usm.dto;
 
 import com.example.usm.entity.User;
 import com.example.usm.enums.ServiceStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @Builder
 public class ServiceDTO {
     private long uid;
