@@ -1,42 +1,43 @@
 package com.example.usm.entity;
 
 import com.example.usm.enums.UserType;
-import jakarta.persistence.*;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Document
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @ToString
-@Table(name = "Users")
+@EqualsAndHashCode
 public class User {
 
     @Id
-    @Column(length = 19, unique = true)
+    @NotNull
     private String serialNumber;
 
-    @Column(length = 50)
     @NotNull @NotBlank
+    @Field
     private String name;
 
-    @Column(length = 14, unique = true)
     @NotNull @NotBlank
+    @Field
     private String phoneNumber;
 
-    @Column
-    @Enumerated
+    @Field
     @NotNull
     private UserType type;
 
     @ToString.Exclude
-    @OneToMany
-    private Set<Service> services = new LinkedHashSet<>();
+    @Field
+    private List<Service> services = new ArrayList<>();
 
 }
