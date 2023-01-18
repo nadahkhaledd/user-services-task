@@ -9,7 +9,6 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Setter @Getter
-@Builder
 public class UserDTO {
 
     private String serialNumber;
