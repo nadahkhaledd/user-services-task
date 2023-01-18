@@ -10,9 +10,11 @@ import java.util.List;
 @Repository
 public interface ServiceRepository extends CrudRepository<Service, Long> {
 
-    public List<Service> findByVendor(String vendor);
+     List<Service> findByVendor(String vendor);
 
-    public List<Service> findByStatus(ServiceStatus status);
+     List<Service> findByStatus(ServiceStatus status);
+
+     List<Service> findByStatusAndVendor(String vendor, ServiceStatus status);
 
 
 }

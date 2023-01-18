@@ -11,9 +11,8 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @ToString
-@Builder
 public class Service {
 
     @Id
@@ -32,7 +31,4 @@ public class Service {
     @Enumerated
     @NotNull
     private ServiceStatus status;
-
-
-
 }
