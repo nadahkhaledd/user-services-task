@@ -1,11 +1,9 @@
 package com.example.usm.repository;
 
-import com.example.usm.entity.Service;
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
