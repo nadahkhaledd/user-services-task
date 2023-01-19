@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserService implements IUserService{
@@ -23,6 +22,9 @@ public class UserService implements IUserService{
 
     @Override
     public User add(User user) {
+        if(user==null)
+            throw new NullPointerException();
+
         return userRepository.findById(user.getSerialNumber()).orElse(userRepository.save(user));
     }
 
@@ -46,11 +48,4 @@ public class UserService implements IUserService{
         return userRepository.findByType(type);
     }
 
-//    @Override
-//    public void addUserService(com.example.usm.entity.Service service, String serialNumber) {
-////        User user = findBySN(serialNumber);
-////        Set<com.example.usm.entity.Service> services = user.getServices();
-////        services.add(service);
-//        userRepository.updateServicesBySerialNumber(service, serialNumber);
-//    }
 }
