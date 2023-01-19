@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter @Setter
 public class ServiceDTO {
-    private long uid;
+    private int uid;
     private String vendor;
     private Date dateCreated;
     private ServiceStatus status;

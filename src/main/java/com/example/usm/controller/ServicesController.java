@@ -59,7 +59,7 @@ public class ServicesController {
 
     @GetMapping("/{uid}")
     @ResponseStatus(HttpStatus.OK)
-    public ServiceDTO findByUID(@PathVariable(name = "uid") long uid){
+    public ServiceDTO findByUID(@PathVariable(name = "uid") int uid){
         return modelMapper.map(servicesService.findByUID(uid), ServiceDTO.class);
     }
 

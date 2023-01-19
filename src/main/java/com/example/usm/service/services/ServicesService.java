@@ -31,7 +31,7 @@ public class ServicesService implements IServicesService{
     }
 
     @Override
-    public com.example.usm.entity.Service findByUID(long uid) {
+    public com.example.usm.entity.Service findByUID(int uid) {
         return serviceRepository.findById(uid).orElseThrow(ServiceNotFoundException::new);
     }
 
