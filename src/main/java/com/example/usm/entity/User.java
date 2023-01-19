@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Table(name = "Users")
 public class User {
 

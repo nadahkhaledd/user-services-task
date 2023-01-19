@@ -1,13 +1,9 @@
 package com.example.usm.controller;
 
 import com.example.usm.dto.ServiceDTO;
-import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.Service;
-import com.example.usm.entity.User;
 import com.example.usm.enums.ServiceStatus;
-import com.example.usm.enums.UserType;
 import com.example.usm.exception.service.ServiceNotFoundException;
-import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.service.services.IServicesService;
 import com.example.usm.service.user.IUserService;
 import jakarta.validation.Valid;
@@ -50,7 +46,7 @@ public class ServicesController {
             return servicesService.findByStatus(status.get()).stream()
                     .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
 
-        return servicesService.findByStatusAndVendor(vendor.get(), status.get()).stream()
+        return servicesService.findByVendorAndStatus(vendor.get(), status.get()).stream()
                 .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
     }
 

@@ -2,9 +2,7 @@ package com.example.usm.service.services;
 
 import com.example.usm.enums.ServiceStatus;
 import com.example.usm.exception.service.ServiceNotFoundException;
-import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.repository.ServiceRepository;
-import com.example.usm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +12,16 @@ import java.util.List;
 public class ServicesService implements IServicesService{
 
     private final ServiceRepository serviceRepository;
-    private final UserRepository userRepository;
 
     @Autowired
-    public ServicesService(ServiceRepository serviceRepository, UserRepository userRepository){
-        this.userRepository = userRepository;
+    public ServicesService(ServiceRepository serviceRepository){
         this.serviceRepository = serviceRepository;
     }
 
     @Override
     public com.example.usm.entity.Service add(com.example.usm.entity.Service service) {
+        if(service == null)
+            throw new NullPointerException();
         return serviceRepository.findById(service.getUid()).orElse(serviceRepository.save(service));
     }
 
@@ -48,7 +46,7 @@ public class ServicesService implements IServicesService{
     }
 
     @Override
-    public List<com.example.usm.entity.Service> findByStatusAndVendor(String vendor, ServiceStatus status) {
-        return serviceRepository.findByStatusAndVendor(vendor, status);
+    public List<com.example.usm.entity.Service> findByVendorAndStatus(String vendor, ServiceStatus status) {
+        return serviceRepository.findByVendorAndStatus(vendor, status);
     }
 }
