@@ -1,19 +1,13 @@
 package com.example.usm.controller;
 
 import com.example.usm.dto.ServiceDTO;
-import com.example.usm.dto.UserAddService;
-import com.example.usm.dto.UserDTO;
-import com.example.usm.entity.Service;
-import com.example.usm.entity.User;
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.exception.user.UserNotFoundException;
-import com.example.usm.service.services.IServicesService;
 import com.example.usm.service.services.ServicesService;
 import com.example.usm.service.user.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
