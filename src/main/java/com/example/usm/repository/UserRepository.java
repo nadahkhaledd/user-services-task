@@ -5,7 +5,6 @@ import com.example.usm.enums.UserType;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
 import org.springframework.data.couchbase.core.query.ViewIndexed;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +19,6 @@ public interface UserRepository extends CouchbaseRepository<User, String> {
     Optional<User> findByPhoneNumber(String phoneNumber);
 
     List<User> findByType(UserType type);
+
+
 }
