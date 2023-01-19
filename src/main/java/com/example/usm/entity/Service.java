@@ -17,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter @Setter
 @ToString
+@EqualsAndHashCode
 public class Service {
 
     @Id
