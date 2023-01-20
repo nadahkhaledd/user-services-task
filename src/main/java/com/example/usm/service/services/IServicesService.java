@@ -12,12 +12,12 @@ public interface IServicesService {
 
     List<Service> getAll();
 
-    Service findByUID(long uid);
+    Service findByUID(int uid);
 
     List<Service> findByVendor(String vendor);
 
     List<Service> findByStatus(ServiceStatus status);
 
-    List<Service> findByStatusAndVendor(String vendor, ServiceStatus status);
+    List<Service> findByVendorAndStatus(String vendor, ServiceStatus status);
 
 }
