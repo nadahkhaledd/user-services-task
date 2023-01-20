@@ -1,6 +1,5 @@
-package com.example.usm.domainPrimitive;
+package com.example.usm.domain_primitive;
 
-import com.couchbase.client.core.deps.com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;

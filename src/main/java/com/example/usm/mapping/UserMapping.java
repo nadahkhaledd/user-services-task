@@ -1,7 +1,7 @@
 package com.example.usm.mapping;
 
-import com.example.usm.domainPrimitive.PhoneNumber;
-import com.example.usm.domainPrimitive.SerialNumber;
+import com.example.usm.domain_primitive.PhoneNumber;
+import com.example.usm.domain_primitive.SerialNumber;
 import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.User;
 
