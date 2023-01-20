@@ -1,11 +1,12 @@
 package com.example.usm.controller;
 
 import com.example.usm.dto.UserDTO;
+import com.example.usm.dto.UserResponseDTO;
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
 import com.example.usm.exception.DuplicateEntryException;
 import com.example.usm.exception.user.UserNotFoundException;
-import com.example.usm.mapping.UserMapping;
+import com.example.usm.utility.UserMapping;
 import com.example.usm.service.user.IUserService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -37,24 +38,24 @@ public class UserController {
     public Object find(@RequestParam(name = "phoneNumber", required = false) Optional<String> phoneNumber,
                               @RequestParam(name = "type", required = false) Optional<UserType> type){
         if(phoneNumber.isPresent())
-            return userMapping.mapToDTO(userService.findByPhone(phoneNumber.get()));
+            return userMapping.mapToResponseDTO(userService.findByPhone(phoneNumber.get()));
 
-        return type.map(userType -> userService.findByType(userType).stream().map(user -> userMapping.mapToDTO(user)).toList()).orElseGet(() -> userService.getAll().stream().map(user -> userMapping.mapToDTO(user)).toList());
+        return type.map(userType -> userService.findByType(userType).stream().map(user -> userMapping.mapToResponseDTO(user)).toList()).orElseGet(() -> userService.getAll().stream().map(user -> userMapping.mapToResponseDTO(user)).toList());
 
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO addUser(@Valid @RequestBody UserDTO userDTO){
-        User mapped = userMapping.mapToEntity(userDTO);
+    public UserResponseDTO addUser(@Valid @RequestBody UserDTO userDTO){
+        User mapped = userMapping.mapToUser(userDTO);
         User user = userService.add(mapped);
-        return userMapping.mapToDTO(user);
+        return userMapping.mapToResponseDTO(user);
     }
 
     @GetMapping("/{serialNumber}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO userBySerialNumber(@PathVariable(name = "serialNumber") String serialNumber){
-        return userMapping.mapToDTO(userService.findBySN(serialNumber));
+    public UserResponseDTO userBySerialNumber(@PathVariable(name = "serialNumber") String serialNumber){
+        return userMapping.mapToResponseDTO(userService.findBySN(serialNumber));
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
