@@ -1,34 +1,39 @@
 package com.example.usm.entity;
 
 import com.example.usm.enums.ServiceStatus;
-import jakarta.persistence.*;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
+import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 
 import java.util.Date;
 
-@Entity
+import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.UNIQUE;
+
+@Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 @ToString
+@EqualsAndHashCode
 public class Service {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long uid;
+    @GeneratedValue(strategy = UNIQUE)
+    private int uid;
 
-    @Column(length = 70, nullable = false)
+    @Field
     @NotNull @NotBlank
     private String vendor;
 
-    @Column(nullable = false)
+    @Field
     @NotNull
     private Date dateCreated;
 
-    @Column
-    @Enumerated
+    @Field
     @NotNull
     private ServiceStatus status;
 }

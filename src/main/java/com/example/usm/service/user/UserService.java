@@ -3,7 +3,10 @@ package com.example.usm.service.user;
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
 import com.example.usm.enums.UserFieldName;
+import com.example.usm.exception.DuplicateEntryException;
+import com.example.usm.exception.service.MaximumNumberOfServicesReachedException;
 import com.example.usm.exception.user.UserNotFoundException;
+import com.example.usm.repository.ServiceRepository;
 import com.example.usm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +15,10 @@ import java.util.List;
 
 @Service
 public class UserService implements IUserService{
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserService (UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private  UserRepository userRepository;
+    @Autowired
+    private ServiceRepository serviceRepository;
 
 
     @Override
@@ -25,12 +26,14 @@ public class UserService implements IUserService{
         if(user==null)
             throw new NullPointerException();
 
-        return userRepository.findById(user.getSerialNumber()).orElse(userRepository.save(user));
+        if(userRepository.existsById(user.getSerialNumber()))
+            throw new DuplicateEntryException();
+        return userRepository.save(user);
     }
 
     @Override
     public List<User> getAll() {
-        return (List<User>) userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -46,6 +49,21 @@ public class UserService implements IUserService{
     @Override
     public List<User> findByType(UserType type) {
         return userRepository.findByType(type);
+    }
+
+    @Override
+    public void addUserService(com.example.usm.entity.Service service, String serialNumber) {
+        int numberOfCurrentServices = userRepository.findNumberOfUserServices(serialNumber);
+        if(numberOfCurrentServices< 10){
+            if(serviceRepository.existsById(service.getUid()))
+                throw new DuplicateEntryException();
+
+            userRepository.addService(service, serialNumber);
+            serviceRepository.save(service);
+        }
+        else{
+            throw new MaximumNumberOfServicesReachedException();
+        }
     }
 
 }

@@ -12,7 +12,7 @@ public interface IServicesService {
 
     List<Service> getAll();
 
-    Service findByUID(long uid);
+    Service findByUID(int uid);
 
     List<Service> findByVendor(String vendor);
 

@@ -1,6 +1,7 @@
 package com.example.usm.service.services;
 
 import com.example.usm.enums.ServiceStatus;
+import com.example.usm.exception.DuplicateEntryException;
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,20 @@ public class ServicesService implements IServicesService{
     public com.example.usm.entity.Service add(com.example.usm.entity.Service service) {
         if(service == null)
             throw new NullPointerException();
-        return serviceRepository.findById(service.getUid()).orElse(serviceRepository.save(service));
+
+        if(serviceRepository.existsById(service.getUid()))
+            throw new DuplicateEntryException();
+
+        return serviceRepository.save(service);
     }
 
     @Override
     public List<com.example.usm.entity.Service> getAll() {
-        return (List<com.example.usm.entity.Service>) serviceRepository.findAll();
+        return serviceRepository.findAll();
     }
 
     @Override
-    public com.example.usm.entity.Service findByUID(long uid) {
+    public com.example.usm.entity.Service findByUID(int uid) {
         return serviceRepository.findById(uid).orElseThrow(ServiceNotFoundException::new);
     }
 
