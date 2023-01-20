@@ -1,5 +1,6 @@
 package com.example.usm.dto;
 
+import com.couchbase.client.core.deps.com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.usm.domainPrimitive.PhoneNumber;
 import com.example.usm.domainPrimitive.SerialNumber;
 import com.example.usm.entity.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Setter @Getter
+@JsonSerialize
 public class UserDTO {
 
     @NotNull

@@ -1,9 +1,12 @@
 package com.example.usm.domainPrimitive;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.Validate;
 
 import static org.apache.commons.lang3.Validate.*;
 
+@Setter @Getter
 public class PhoneNumber {
 
     private static final int MINIMUM_LENGTH = 11;

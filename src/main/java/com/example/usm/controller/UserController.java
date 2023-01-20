@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class UserController {
     public UserDTO addUser(@Valid @RequestBody UserDTO userDTO){
         User mapped = userMapping.mapToEntity(userDTO);
         User user = userService.add(mapped);
-        return modelMapper.map(user, UserDTO.class);
+        return userMapping.mapToDTO(user);
     }
 
     @GetMapping("/{serialNumber}")
@@ -64,14 +65,20 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public String returnIllegal(HttpMessageNotReadableException ex) {
-        return ex.getMessage();
+    public String domainPrimitiveError(HttpMessageNotReadableException ex) {
+        return ex.getMessage().split("problem: ")[1];
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public String constraint(ConstraintViolationException ex) {
+    public String constraintViolation(ConstraintViolationException ex) {
         return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String constraint(MethodArgumentNotValidException ex) {
+        return "request arguments not sufficient";
     }
 
 
