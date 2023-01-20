@@ -1,23 +1,43 @@
 package com.example.usm.dto;
 
+import com.couchbase.client.core.deps.com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.example.usm.domainPrimitive.PhoneNumber;
+import com.example.usm.domainPrimitive.SerialNumber;
 import com.example.usm.entity.Service;
 import com.example.usm.enums.UserType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Setter @Getter
+@JsonSerialize
 public class UserDTO {
 
-    private String serialNumber;
+    @NotNull
+    private SerialNumber serialNumber;
+
+    @NotNull
     private String name;
-    private String phoneNumber;
+
+    @NotNull
+    private PhoneNumber phoneNumber;
+
+    @NotNull
     private UserType type;
-    private Set<Service> services;
+
+    @Size(min = 0, max = 10)
+    private List<Service> services;
 
     public UserDTO (){
-        this.services = new HashSet<>();
+        this.services = new ArrayList<>();
     }
+
+
+
 }
