@@ -22,9 +22,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
-    @Autowired
-    private ModelMapper modelMapper;
     private UserMapping userMapping = new UserMapping();
 
     private final IUserService userService;

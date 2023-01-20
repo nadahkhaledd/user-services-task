@@ -13,6 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Setter @Getter
+@EqualsAndHashCode
 @JsonSerialize
 public class UserDTO {
 

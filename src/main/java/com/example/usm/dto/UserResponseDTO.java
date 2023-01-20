@@ -5,10 +5,7 @@ import com.example.usm.domain_primitive.PhoneNumber;
 import com.example.usm.domain_primitive.SerialNumber;
 import com.example.usm.entity.Service;
 import com.example.usm.enums.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
 @JsonSerialize
 public class UserResponseDTO {
 
