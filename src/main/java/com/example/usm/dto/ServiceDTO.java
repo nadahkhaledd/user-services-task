@@ -8,6 +8,7 @@ import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter @Setter
 public class ServiceDTO {
     private int uid;
