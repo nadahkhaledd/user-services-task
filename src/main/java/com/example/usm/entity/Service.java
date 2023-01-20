@@ -24,7 +24,6 @@ import static org.springframework.data.couchbase.core.mapping.id.GenerationStrat
 public class Service {
 
     @Id
-    @UUID
     @GeneratedValue(strategy = UNIQUE)
     private int uid;
 

@@ -3,13 +3,16 @@ package com.example.usm.controller;
 import com.example.usm.dto.ServiceDTO;
 import com.example.usm.entity.Service;
 import com.example.usm.enums.ServiceStatus;
+import com.example.usm.exception.DuplicateEntryException;
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.service.services.IServicesService;
 import com.example.usm.service.user.IUserService;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,9 +73,22 @@ public class ServicesController {
 
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateEntryException.class)
+    public String duplicate(DuplicateEntryException ex) {
+        return ex.getMessage();
+    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public String constraintViolation(ConstraintViolationException ex) {
+        return ex.getMessage();
+    }
 
-
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String constraint(MethodArgumentNotValidException ex) {
+        return "request arguments not sufficient";
+    }
 
 }

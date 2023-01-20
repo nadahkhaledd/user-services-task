@@ -3,6 +3,7 @@ package com.example.usm.controller;
 import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
+import com.example.usm.exception.DuplicateEntryException;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.mapping.UserMapping;
 import com.example.usm.service.user.IUserService;
@@ -69,6 +70,12 @@ public class UserController {
         return ex.getMessage().split("problem: ")[1];
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateEntryException.class)
+    public String duplicate(DuplicateEntryException ex) {
+        return ex.getMessage();
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public String constraintViolation(ConstraintViolationException ex) {
@@ -80,6 +87,5 @@ public class UserController {
     public String constraint(MethodArgumentNotValidException ex) {
         return "request arguments not sufficient";
     }
-
 
 }
