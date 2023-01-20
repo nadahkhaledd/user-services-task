@@ -1,19 +1,18 @@
 package com.example.usm.controller;
 
 import com.example.usm.dto.ServiceDTO;
-import com.example.usm.dto.UserAddService;
-import com.example.usm.dto.UserDTO;
 import com.example.usm.entity.Service;
-import com.example.usm.entity.User;
+import com.example.usm.exception.DuplicateEntryException;
+import com.example.usm.exception.service.MaximumNumberOfServicesReachedException;
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.exception.user.UserNotFoundException;
-import com.example.usm.service.services.IServicesService;
-import com.example.usm.service.services.ServicesService;
+import com.example.usm.repository.UserRepository;
 import com.example.usm.service.user.IUserService;
+import jakarta.validation.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,12 +23,12 @@ public class UserServicesController {
     private ModelMapper modelMapper;
 
     private final IUserService userService;
-    private final ServicesService servicesService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServicesController(IUserService userService, ServicesService servicesService){
+    public UserServicesController(IUserService userService){
         this.userService = userService;
-        this.servicesService = servicesService;
     }
 
     @GetMapping
@@ -38,12 +37,12 @@ public class UserServicesController {
                 .map(service -> modelMapper.map(service, ServiceDTO.class)).toList();
     }
 
-//    @PostMapping("/add")
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    public String addService(@PathVariable(value = "serialNumber") String serialNumber, @RequestParam(name = "uid") long uid){
-//        userService.addUserService(servicesService.findByUID(uid), serialNumber);
-//        return "service added";
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String addService(@PathVariable(value = "serialNumber") String serialNumber, @RequestBody ServiceDTO serviceDTO){
+        userService.addUserService(modelMapper.map(serviceDTO, Service.class), serialNumber);
+        return "service added";
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
@@ -57,6 +56,29 @@ public class UserServicesController {
         return ex.getMessage();
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateEntryException.class)
+    public String duplicate(DuplicateEntryException ex) {
+        return ex.getMessage();
+    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public String constraintViolation(ConstraintViolationException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MaximumNumberOfServicesReachedException.class)
+    public String maximumServicesReached(MaximumNumberOfServicesReachedException ex) {
+        return ex.getMessage();
+    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String constraint(MethodArgumentNotValidException ex) {
+        return "request arguments not sufficient";
+    }
 
 }
