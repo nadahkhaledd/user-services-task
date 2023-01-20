@@ -23,13 +23,6 @@ public interface UserRepository extends CouchbaseRepository<User, String> {
 
     List<User> findByType(UserType type);
 
-//    @Query("""
-//            SELECT services
-//            FROM #{#n1ql.bucket}
-//            WHERE #{#n1ql.filter} and META().id = $1""")
-//    List<Service> findUserServices(String serialNumber);
-
-
     @Query("""
             SELECT ARRAY_COUNT(services) AS total_services
             FROM #{#n1ql.bucket}

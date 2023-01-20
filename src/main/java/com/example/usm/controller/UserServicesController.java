@@ -7,7 +7,6 @@ import com.example.usm.exception.service.MaximumNumberOfServicesReachedException
 import com.example.usm.exception.service.ServiceNotFoundException;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.repository.UserRepository;
-import com.example.usm.service.services.ServicesService;
 import com.example.usm.service.user.IUserService;
 import jakarta.validation.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
@@ -24,14 +23,12 @@ public class UserServicesController {
     private ModelMapper modelMapper;
 
     private final IUserService userService;
-    private final ServicesService servicesService;
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    public UserServicesController(IUserService userService, ServicesService servicesService){
+    public UserServicesController(IUserService userService){
         this.userService = userService;
-        this.servicesService = servicesService;
     }
 
     @GetMapping
@@ -73,7 +70,7 @@ public class UserServicesController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MaximumNumberOfServicesReachedException.class)
-    public String MaximumServicesReached(MaximumNumberOfServicesReachedException ex) {
+    public String maximumServicesReached(MaximumNumberOfServicesReachedException ex) {
         return ex.getMessage();
     }
 

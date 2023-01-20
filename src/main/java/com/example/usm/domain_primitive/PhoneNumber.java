@@ -1,8 +1,7 @@
-package com.example.usm.domainPrimitive;
+package com.example.usm.domain_primitive;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.Validate;
 
 import static org.apache.commons.lang3.Validate.*;
 

@@ -33,7 +33,7 @@ public class UserService implements IUserService{
 
     @Override
     public List<User> getAll() {
-        return (List<User>) userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -49,11 +49,6 @@ public class UserService implements IUserService{
     @Override
     public List<User> findByType(UserType type) {
         return userRepository.findByType(type);
-    }
-
-    @Override
-    public int getNumberOfUserServicesBySN(String serialNumber) {
-        return userRepository.findNumberOfUserServices(serialNumber);
     }
 
     @Override
