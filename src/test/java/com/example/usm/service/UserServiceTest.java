@@ -3,6 +3,7 @@ package com.example.usm.service;
 import com.example.usm.entity.User;
 import com.example.usm.enums.UserType;
 import com.example.usm.exception.user.UserNotFoundException;
+import com.example.usm.repository.ServiceRepository;
 import com.example.usm.repository.UserRepository;
 import com.example.usm.service.user.IUserService;
 import com.example.usm.service.user.UserService;
@@ -22,17 +23,19 @@ public class UserServiceTest {
 
     private IUserService userService;
     private UserRepository userRepositoryMock;
+    private ServiceRepository serviceRepositoryMock;
 
     private User user;
 
     public UserServiceTest(){
         userRepositoryMock = Mockito.mock(UserRepository.class);
-        userService = new UserService(userRepositoryMock);
+        serviceRepositoryMock = Mockito.mock(ServiceRepository.class);
+        userService = new UserService(userRepositoryMock, serviceRepositoryMock);
     }
 
     public User initializeUser(){
-        return new User("1111-6543-8765-0953", "Nadah",
-                "01287446339", UserType.Normal, new HashSet<>());
+        return new User("1111-6543-8765-095h", "Nadah",
+                "01287446339", UserType.Normal, new ArrayList<>());
     }
 
     @Before

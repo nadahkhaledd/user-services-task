@@ -102,23 +102,23 @@ public class ServicesServiceTest {
     @Test(expected = ServiceNotFoundException.class)
     public void testFindByUID_sendInvalidUID_ExpectServiceNotFoundException(){
         // Arrange
-        when(serviceRepositoryMock.findById(anyLong())).thenReturn(Optional.empty());
+        when(serviceRepositoryMock.findById(anyInt())).thenReturn(Optional.empty());
 
         //ACT
-        servicesService.findByUID(anyLong());
+        servicesService.findByUID(anyInt());
     }
 
     @Test
     public void testFindByUID_SendValidUID_ExpectReturnService(){
         //Arrange
-        when(serviceRepositoryMock.findById(anyLong())).thenReturn(Optional.of(service));
+        when(serviceRepositoryMock.findById(anyInt())).thenReturn(Optional.of(service));
 
         //ACT
         Service returned = servicesService.findByUID(service.getUid());
 
         // Assert
         assertEquals(service, returned);
-        verify(serviceRepositoryMock, times(1)).findById(anyLong());
+        verify(serviceRepositoryMock, times(1)).findById(anyInt());
     }
 
     @Test
