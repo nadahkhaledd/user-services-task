@@ -15,10 +15,16 @@ import java.util.List;
 
 @Service
 public class UserService implements IUserService{
+
+    private final UserRepository userRepository;
+
+    private final ServiceRepository serviceRepository;
+
     @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private ServiceRepository serviceRepository;
+    public UserService(UserRepository userRepository, ServiceRepository serviceRepository){
+        this.userRepository = userRepository;
+        this.serviceRepository = serviceRepository;
+    }
 
 
     @Override
@@ -53,6 +59,9 @@ public class UserService implements IUserService{
 
     @Override
     public void addUserService(com.example.usm.entity.Service service, String serialNumber) {
+        if(service == null)
+            throw new NullPointerException();
+
         int numberOfCurrentServices = userRepository.findNumberOfUserServices(serialNumber);
         if(numberOfCurrentServices< 10){
             if(serviceRepository.existsById(service.getUid()))

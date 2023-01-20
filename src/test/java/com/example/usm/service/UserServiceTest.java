@@ -1,7 +1,11 @@
 package com.example.usm.service;
 
+import com.example.usm.entity.Service;
 import com.example.usm.entity.User;
+import com.example.usm.enums.ServiceStatus;
 import com.example.usm.enums.UserType;
+import com.example.usm.exception.DuplicateEntryException;
+import com.example.usm.exception.service.MaximumNumberOfServicesReachedException;
 import com.example.usm.exception.user.UserNotFoundException;
 import com.example.usm.repository.ServiceRepository;
 import com.example.usm.repository.UserRepository;
@@ -16,6 +20,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @SpringBootTest
@@ -38,6 +44,19 @@ public class UserServiceTest {
                 "01287446339", UserType.Normal, new ArrayList<>());
     }
 
+    public Service getService(){
+        Service service = null;
+        try {
+            service =  new Service(1, "vodafone",
+                    new SimpleDateFormat("dd-MM-yyyy").parse("22-10-2022"),
+                    ServiceStatus.Active);
+        }
+        catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+        return service;
+    }
+
     @Before
     public void init() {
         MockitoAnnotations.openMocks(this);
@@ -48,6 +67,15 @@ public class UserServiceTest {
     public void testAdd_sendNullEntity_returnNullPointerException() {
         /*ACT*/
         userService.add(null);
+    }
+
+    @Test(expected = DuplicateEntryException.class)
+    public void testAdd_sendDuplicateData_expectDuplicateEntryException(){
+        //Arrange
+        when(userRepositoryMock.existsById(anyString())).thenReturn(true);
+
+        //Act
+        userService.add(user);
     }
 
     @Test
@@ -156,6 +184,48 @@ public class UserServiceTest {
         assertEquals(1, users.size());
         assertEquals("Nadah", users.get(0).getName());
 
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testAddUserService_sendNullService_returnNullPointerException() {
+        /*ACT*/
+        userService.addUserService(null, anyString());
+    }
+
+    @Test(expected = MaximumNumberOfServicesReachedException.class)
+    public void testAddUserService_when10ServicesMet_expectMaximumNumberOfServicesReachedException() {
+       //Arrange
+        when(userRepositoryMock.findNumberOfUserServices(anyString())).thenReturn(10);
+
+        /*ACT*/
+        userService.addUserService(getService(), anyString());
+    }
+
+    @Test(expected = DuplicateEntryException.class)
+    public void testAddUserService_sendDuplicateService_expectDuplicateEntryException() {
+        //Arrange
+        when(userRepositoryMock.findNumberOfUserServices(anyString())).thenReturn(8);
+        when(serviceRepositoryMock.existsById(anyInt())).thenReturn(true);
+
+        /*ACT*/
+        userService.addUserService(getService(), anyString());
+    }
+
+    @Test
+    public void testAddUserService_sendValidService_expectSuccess() {
+        //Arrange
+        Service service = getService();
+        when(userRepositoryMock.findNumberOfUserServices(anyString())).thenReturn(8);
+        when(serviceRepositoryMock.existsById(anyInt())).thenReturn(false);
+        doNothing().when(userRepositoryMock).addService(any(Service.class), anyString());
+        when(serviceRepositoryMock.save(any(Service.class))).thenReturn(service);
+
+        /*ACT*/
+        userService.addUserService(getService(), user.getSerialNumber());
+
+        //Assert
+        verify(serviceRepositoryMock, times(1)).save(any(Service.class));
     }
 
 
