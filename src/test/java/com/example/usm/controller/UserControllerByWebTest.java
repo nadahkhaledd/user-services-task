@@ -1,12 +1,8 @@
 package com.example.usm.controller;
 
-import com.example.usm.dto.UserResponseDTO;
-import com.example.usm.utility.UserMapping;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
