@@ -6,9 +6,6 @@ public class UserUtils {
     public static UserType getUserType(String serialNumber){
         char lastDigit = serialNumber.charAt(serialNumber.length()-1);
 
-        if(Character.isDigit(lastDigit))
-            return UserType.Anonymous;
-        else
-            return UserType.Normal;
+        return (Character.isDigit(lastDigit)? UserType.Anonymous : UserType.Normal);
     }
 }
