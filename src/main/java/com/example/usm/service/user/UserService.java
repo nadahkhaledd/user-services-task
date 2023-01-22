@@ -62,13 +62,15 @@ public class UserService implements IUserService{
         if(service == null)
             throw new NullPointerException();
 
+        if(!userRepository.existsById(serialNumber))
+            throw new UserNotFoundException(UserFieldName.SerialNumber);
+
         int numberOfCurrentServices = userRepository.findNumberOfUserServices(serialNumber);
         if(numberOfCurrentServices< 10){
-            if(serviceRepository.existsById(service.getUid()))
-                throw new DuplicateEntryException();
+            if(!serviceRepository.existsById(service.getUid()))
+                serviceRepository.save(service);
 
             userRepository.addService(service, serialNumber);
-            serviceRepository.save(service);
         }
         else{
             throw new MaximumNumberOfServicesReachedException();
