@@ -6,7 +6,7 @@ import com.example.usm.dto.UserDTO;
 import com.example.usm.dto.UserResponseDTO;
 import com.example.usm.entity.User;
 
-public class UserMapping {
+public class UserMapper {
 
     public User mapToUser(UserDTO userDTO){
 
